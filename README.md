@@ -1,8 +1,6 @@
 AngularTT
 =========
 
-#Make Talent Trees using AngularJS
-
 ##Interactive Web Application build with AngularJS
 
 ###Working version: 
