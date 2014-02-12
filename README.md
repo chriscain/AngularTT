@@ -9,11 +9,11 @@ Construct and edit tree, no export function (yet)
 
 ###Constraints:
 
-Maximum 5 rows, 5 columns
-Talent Prereq Options limited to previous talent in same column
+1. Maximum 5 rows, 5 columns
+2. Talent Prereq Options limited to previous talent in same column
 
 ##TODO
 
-Simulation Button
-Export Function + .js library
-User backend for multiple saved trees
+1. Simulation Function
+2. Export + accompanying libraries
+3. User backend for multiple saved trees
