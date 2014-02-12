@@ -1,7 +1,7 @@
-AngularTT
+Angular Talent Trees
 =========
 
-##Interactive Web Application build with AngularJS
+##An Interactive Web Application built with AngularJS
 
 ###Working version: 
 
