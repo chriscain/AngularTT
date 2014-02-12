@@ -54,7 +54,7 @@ myApp.directive('activateMe', function () {
 
 		//remove active classes from all and add to clicked item
 		element.bind('click', function() {
-			scope.groups[attrs.activeGroup].forEach(function(item) {
+			_.each(scope.groups[attrs.activeGroup], function(item) {
 				item.removeClass("active");
 			});
 			element.addClass("active");

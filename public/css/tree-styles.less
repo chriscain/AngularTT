@@ -107,10 +107,21 @@
 			border: 1px solid black;
 			-webkit-background-size: cover;
 			background-size: cover;
+			box-shadow: 3px 3px 2px 0px rgba(50, 50, 50, 0.75);
+
+			&.selected {
+
+				background-color: #FFE8E5;
+
+				.li-container .options-container {
+					opacity: 1;
+				}
+			}
 
 			&.disabled {
-				border: 1px solid #dbdbdb;
+				border-color: #dbdbdb;
 				opacity: .5;
+				box-shadow: none;
 
 				.points-display {
 					display: none;
@@ -363,11 +374,5 @@
 		margin-right: 200px;
 		
 	}
-
-	// .show-animation.ng-hide-remove,
-	// .show-animation.ng-hide-add.ng-hide-remove-active {
-	// 	opacity: 1;
-	// }
-
 }
 

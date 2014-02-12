@@ -12,7 +12,6 @@ myApp.service('rowService', function() {
 				treeRows[i] = {
 
 					row_num: i,
-					//our object contains one property, columns, that is an array of column objects.
 					columns: []
 				};
 				for (var j = 0; j < columns; j++)
