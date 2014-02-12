@@ -1,0 +1,147 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,600,300);
+@import "easydrop-talent.less";
+
+@lightred: #BF6259;
+@darkred: #7F413B;
+@hoverred: #AA5F55;
+
+.form-container {
+
+	background-color: @lightred;
+	padding: 0 10px;
+	text-align: center;
+
+	.inner {
+		text-align: left;
+		background-color: @darkred;
+		padding: 20px;
+	}
+
+	.form-element {
+		margin-bottom: 10px;
+
+		&.left {
+			float: left;
+			width: 45%;
+			
+		}
+		
+
+		&.right {
+			float: right;
+			width: 45%;
+		}
+
+		&.block {
+			float: left;
+			width: 100%;
+		}
+	}
+
+	h2 {
+		font-family: 'Lato', sans-serif;
+		font-weight: 700;
+		font-size: 18px;
+		color: #40211E;
+	}
+
+	input, textarea {
+
+		font-family: 'Lato';
+		font-weight: 300;
+		background-color: @lightred;
+		border: none;
+		padding: 6px 8px;
+		color: white;
+		font-size: 16px;
+		line-height: 22px;
+		width: 100%;
+
+		&:focus {
+			outline-width: 0;
+		}
+	}
+
+	textarea {
+		font-size: 14px;
+	}
+
+	button {
+
+		font-family: 'Lato';
+		font-weight: 300;
+		color: white;
+		background-color: @lightred;
+		border: none;
+		height: 34px;
+		width: 100%;
+		line-height: 34px;
+		margin-top: 10px;
+
+		&:hover {
+			background-color: @hoverred;
+		}
+
+		&#submit {
+			margin-top: 40px;
+		}
+
+		&#addImage {
+			background-color: @darkred;
+			border: 2px dotted @lightred;
+			border-radius: 5px;
+			line-height: 30px;
+			width: 70%;
+			margin-left: 15%;
+
+			&:hover {
+				background-color: @hoverred;
+			}
+		}
+	}
+
+	label {
+		font-family: 'Lato';
+		font-weight: 300;
+		color: white;
+		margin-top: 7px;
+		margin-bottom: 2px;
+		font-size: 14px;
+	}
+
+	textarea {
+		resize: none;
+		height: 150px;
+	}
+
+
+	::-webkit-input-placeholder { /* WebKit browsers */
+		color: @darkred;
+		font-family: 'Lato';
+		font-weight: 300;
+	}
+	:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+		color: @darkred;
+		font-family: 'Lato';
+		font-weight: 300;
+	}
+	::-moz-placeholder { /* Mozilla Firefox 19+ */
+		color: @darkred;
+		font-family: 'Lato';
+		font-weight: 300;
+	}
+	:-ms-input-placeholder { /* Internet Explorer 10+ */
+		color: @darkred;
+		font-family: 'Lato';
+		font-weight: 300;
+	}
+
+
+
+
+
+
+
+
+
+}

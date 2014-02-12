@@ -1,0 +1,192 @@
+<!doctype html>
+
+<html ng-app="myApp" ng-controller="dirtywerkController">
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Talent Tree Skeleton</title>
+
+	<link rel="stylesheet" href="public/libs/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="public/libs/font-awesome/css/font-awesome.min.css">
+
+	<link rel="stylesheet/less" type="text/css" href="public/css/styles.less" />
+
+</head>
+
+<body ng-controller="TalentController">
+
+	<div class="sidebar" resize ng-style="style()">
+		<ul class="sidebar-list top">
+			<li class="sidebar-icon"><a href="#" activate-me active-group="sidebar-top"><i class="fa fa-user"></i></a></li>
+			<li class="sidebar-icon"><a class="active" activate-me active-group="sidebar-top" href="#"><i class="fa fa-cogs"></i></a></li>
+			<li class="sidebar-icon"><a href="#" activate-me active-group="sidebar-top"><i class="fa fa-list-ul"></i></a></li>
+			<li class="sidebar-icon"><a class="simulate" href="#"><i class="fa fa-play"></i></a></li>
+		</ul>
+		<ul class="sidebar-list bottom">
+			<li class="sidebar-icon"><a href="#"><i class="fa fa-question"></i></a></li>
+			<li class="sidebar-icon"><a href="#"><i class="fa fa-github"></i></a></li>
+			<li class="sidebar-icon"><a href="#"><i class="fa fa-twitter"></i></a></li>
+		</ul>
+	</div>
+	<div class="config-place" resize ng-style="style()">
+		<div class="inner">
+			<h1>Talent Settings</h1>
+			<div class="form-container">
+				<div class="inner">
+					<form role="form" name="talentForm">
+						<label for="talentName">Name of Talent</label>
+						<input type="text" class="form-element" placeholder="Talent Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Talent Name'" id="talentName" ng-model="selectedTalent.talentName">
+						<div class="form-element left">
+							<label for="points">Max Points</label>
+							<select class="dropdown" id="max-points">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+						</div>
+						<div class="form-element right">
+							<label for="prereq-points">Prereq Points?</label>
+							<select class="dropdown" id="prereq-points">
+								<option value="1">0</option>
+								<option value="2">1</option>
+								<option value="3">2</option>
+							</select>
+						</div>
+						<div class="form-element block">
+							<label for="points">Prereq Talent</label>
+							<select class="dropdown" id="points">
+								<option value="1">None</option>
+								<option value="2">April</option>
+								<option value="3">Son</option>
+							</select>
+						</div>
+						<label for="desc">Talent Description</label>
+						<textarea class="form-element" name="desc" id="desc" cols="30" rows="5" placeholder="Enter a description" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter a description'" ng-model="selectedTalent.description"></textarea>
+						<button class="form-element right" ng-click="toggleAdvancedOptions()">Advanced Settings <i class="fa fa-caret-right"></i></button>
+						<button class="form-element" id="submit">Submit Changes</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="extra-config" resize ng-style="style()" ng-init="advancedOptions=false" ng-class="{active: advancedOptions}">
+		<div class="inner">
+			<h1><i class="fa fa-cogs"></i></h1>
+			<div class="extra-form-container">
+				<label for="talentImage">Talent Image</label>
+				<img src="http://placehold.it/300x300/fff" alt="" id="talentImage">
+				<button class="form-element" id="addImage">Choose Image...&nbsp&nbsp <i class="fa fa-picture-o"></i></button>
+				<label for="points-per">Levels / Talent Increase <i class="fa fa-question-circle"></i></label>
+				<div class="form-element block">
+					<select class="dropdown" id="points-per">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	<div class="talent-tree" resize ng-style="style()">
+		<div class="inner">
+			<div class="display-type">
+				<h5><a href="#" class="left active" activate-me="treeDisplay" ng-click="treeType='visual'">visual display</a></h5><h5><a href="#" activate-me="treeDisplay" ng-click="treeType = 'textual'">textual display</a></h5>
+			</div>
+			<h1>Talent Tree</h1>
+			<div class="tree-container" ng-init="treeType='visual'">
+				<div class="visual-container show-animation" ng-show="treeType == 'visual'">
+					<div class="row-backgrounds">
+						<div ng-repeat="row in treeRows" class="bg">
+							<h3>Row {{row.columns[0].row_id}}</h3>
+						</div>
+					</div>
+					<ul class="list-row" id="row{{row}}" ng-repeat="row in treeRows">
+						<li class="tree-li" ng-class="{'disabled': talent.disabled, 'info-left': talent.col_id%3==1}" ng-repeat="talent in row.columns" ng-mouseover="displayStuff(talent)" ng-mouseleave="displayStuff(null)">
+							<div class="li-container">		
+								<div class="prereq-connection" ng-show="!(talent.prereq == 'None')"></div>
+								<div class="options-container">
+									<div class="control enable">
+										<a ng-click="disable(talent)"><i class="fa fa-ban"></i></a>
+									</div>
+									<div class="control config">
+										<a ng-click="setSelected(talent)"><i class="fa fa-gear"></i></a>
+									</div>
+								</div>
+								<div class="points-display">
+									<p><span class="spent">{{talent.pointsIn}}</span>/<span class="max">{{talent.maxPoints}}</span></p>
+								</div>
+								<div class="talents-info">
+									<div class="inefo-container">
+										<p class="nvame">{{hovedredTalent.talentName}}</p>
+										<p class="dedscription">{{hovseredTalent.description}}</p>
+										<p class="prsereq">{{hoveredTdalent.prereq}}</p>
+										<p class="exdtra-info">{{hovecredTalent.extraStuff}}</p>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="textual-container show-animation" ng-show="treeType == 'textual'">
+					
+					<div class="textual-row-container">
+						<div class="side">
+							<div class="mini-tree-display">
+								<ul class="mini-list-row" id="row{{row}}" ng-repeat="row in treeRows">
+									<li class="mini-list-col" ng-class="{notDisplayed: talent.disabled, strongBorder: talent.row_id == whichRow+1}" ng-repeat="talent in row.columns"></li>
+								</ul>
+							</div>
+							<div class="row-list-container">
+								<ul class="row-list">
+									<li class="header" ng-repeat="row in treeRows">
+										<a ng-click="changeTab(row)" activate-me active-group="treeContRows" first-active="0" class="row-header-link" href="#">Row {{row.row_num + 1}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="text-display" ng-repeat="row in treeRows" ng-show="whichRow == row.row_num">
+							<ul class="row-display">
+								<li ng-repeat="talent in row.columns" ng-class="{'disabled': talent.disabled}">
+									<div class="tInfo tSect">
+										<p><span class="talent-header">Talent Name:</span> {{talent.talentName}}</p>
+										<p><span class="talent-header">Max Points:</span> {{talent.maxPoints}}</p>
+										<p><span class="talent-header">Prereq Talent:</span> {{talent.prereq}}</p>
+										<p><span class="talent-header">Levels/Talent: {{talent.per}}</span></p>
+									</div>
+									<div class="tDesc tSect">
+										<p><span class="talent-header">Description:</span> {{talent.description}}</p>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- bower packages -->
+	<script src="public/libs/jquery/jquery.min.js"></script>
+	<script src="public/libs/angular/angular.min.js"></script>
+	<script src="public/libs/angular-animate/angular-animate.min.js"></script>
+	<script src="public/libs/less/dist/less-1.6.0.min.js"></script>
+
+	<!-- extra packages -->
+	<script src="public/libs/extra/jquery.easydropdown.min.js"></script>
+
+	<!-- local scripts -->
+	<script src="public/js/app.js"></script>
+	<script src="public/js/directives/talentDirectives.js"></script>
+	<script src="public/js/services/rowService.js"></script>
+
+</body>
+</html>
+
+</body>
+</html>

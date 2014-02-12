@@ -1,0 +1,100 @@
+.extra-config {
+
+	width: 10px;
+	float: left;
+	opacity: 1;
+	z-index: 10;
+	background-color: @darkred;
+
+	.inner {
+		text-align: center;
+
+		h1 {
+			background-color: #222222;
+			font-size: 20px;
+			color: #777;
+		}
+
+		.extra-form-container {
+
+			padding: 10px;
+			display: none;
+			text-align: left;
+
+			.form-element {
+				margin-bottom: 10px;
+
+				&.left {
+					float: left;
+					width: 45%;
+
+				}
+
+
+				&.right {
+					float: right;
+					width: 45%;
+				}
+
+				&.block {
+					float: left;
+					width: 100%;
+				}
+			}
+
+			label {
+				font-family: 'Lato';
+				font-weight: 300;
+				color: white;
+				margin-top: 7px;
+				margin-bottom: 2px;
+				font-size: 14px;
+			}
+
+			img {
+				width: 100%;
+				border: 1px solid @lightred;
+			}
+
+			button {
+
+				font-family: 'Lato';
+				font-weight: 300;
+				color: white;
+				background-color: @lightred;
+				border: none;
+				height: 34px;
+				width: 100%;
+				line-height: 34px;
+				margin-top: 10px;
+
+				&#addImage {
+					background-color: @darkred;
+					border: 2px dotted @lightred;
+					border-radius: 5px;
+					line-height: 30px;
+					width: 100%;
+
+					&:hover {
+						background-color: @hoverred;
+					}
+				}
+			}
+		}
+	}
+
+	-webkit-transition:all linear .2s;
+	-moz-transition:all linear .2s;
+	-ms-transition:all linear .2s;
+	-o-transition:all linear .2s;
+	transition:all linear .2s;
+}
+
+.extra-config.active {
+	width: 200px;
+
+	.extra-form-container {
+		display: block;
+	}
+}
+

@@ -1,0 +1,12 @@
+{
+    "name": "talentApp",
+    "version": "1.0.0",
+    "dependencies": {
+        "bootstrap": "latest",
+        "font-awesome": "latest",
+        "angular": "latest",
+        "jquery": "latest",
+        "angular-animate": "latest",
+        "less": "1.6.0"
+    }
+}
