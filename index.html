@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="public/libs/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="public/libs/font-awesome/css/font-awesome.min.css">
 
-	<link rel="stylesheet/less" type="text/css" href="public/css/styles.less" />
+	<link rel="stylesheet/less" type="text/css" href="public/css/styles.less?version=2.0" />
 
 </head>
 
@@ -19,22 +19,22 @@
 
 	<div class="sidebar" resize ng-style="style()">
 		<ul class="sidebar-list top">
-			<li class="sidebar-icon"><a href="#" activate-me active-group="sidebar-top"><i class="fa fa-user"></i></a></li>
-			<li class="sidebar-icon"><a class="active" activate-me active-group="sidebar-top" href="#"><i class="fa fa-cogs"></i></a></li>
-			<li class="sidebar-icon"><a href="#" activate-me active-group="sidebar-top"><i class="fa fa-list-ul"></i></a></li>
+			<li class="sidebar-icon"><a ng-click="settings = 'users'" href="#" activate-me active-group="sidebar-top"><i class="fa fa-user"></i></a></li>
+			<li class="sidebar-icon"><a ng-click="settings = 'talents'" class="active" activate-me active-group="sidebar-top" href="#"><i class="fa fa-cogs"></i></a></li>
+			<li class="sidebar-icon"><a ng-click="settings = 'rows'" href="#" activate-me active-group="sidebar-top"><i class="fa fa-list-ul"></i></a></li>
 			<li class="sidebar-icon"><a class="simulate" href="#"><i class="fa fa-play"></i></a></li>
 		</ul>
 		<ul class="sidebar-list bottom">
-			<li class="sidebar-icon"><a href="#"><i class="fa fa-question"></i></a></li>
+			<li class="sidebar-icon"><a ng-click="settings = 'help'" href="#"><i class="fa fa-question"></i></a></li>
 			<li class="sidebar-icon"><a href="https://github.com/chrishcain/AngularTT"><i class="fa fa-github"></i></a></li>
 			<li class="sidebar-icon"><a href="http://twitter.com/chriscaindev"><i class="fa fa-twitter"></i></a></li>
 		</ul>
 	</div>
-	<div class="config-place" resize ng-style="style()">
-		<div class="inner">
-			<div class="talent-settings wrapper" ng-show="settings == 'talents'" ng-init="settings = 'talents'">
+	<div class="config-place" resize ng-style="style()" ng-init="settings = 'welcome'">
+		<div class="inner" resize ng-style="modStyle(0)">
+			<div class="talent-settings wrapper" ng-show="settings == 'talents'">
 				<h1>Talent Settings</h1>
-				<div class="form-container">
+				<div class="form-container" ng-show="selectedTalent">
 					<div class="inner">
 						<form role="form" name="talentForm">
 							<label for="talentName">Name of Talent</label>
@@ -55,29 +55,148 @@
 							<label for="desc">Talent Description</label>
 							<textarea class="form-element" name="desc" id="desc" cols="30" rows="5" placeholder="Enter a description" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter a description'" ng-model="selectedTalent.description"></textarea>
 							<button class="form-element right" ng-click="toggleAdvancedOptions()">Advanced Settings <i class="fa fa-caret-right"></i></button>
-							<button class="form-element" id="submit" ng-click="showJSON()">Submit Changes</button>
 						</form>
 					</div>
 				</div>
+				<div class="form-container" ng-show="!selectedTalent">
+					<div class="no-talent">
+						<h3>No Talent Selected</h3>
+						<p>Select a talent to configure it!</p>
+					</div>
+				</div>
 			</div>
-			<div class="row-settings wrapper" ng-show="settings == 'rows'">
+			<div class="row-settings wrapper help" ng-show="settings == 'rows'">
 				<h1>Row Settings</h1>
 				<div class="form-container">
 					<div class="inner">
+						<h3>Talents needed in row before next:</h3>
+						<label for="row-settings-1">Row 1</label>
+						<div class="form-element block">
+							<select class="dropdown" id="row-settings-1">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+							</select>
+						</div>
+						<label for="row-settings-2">Row 2</label>
+						<div class="form-element block">
+							<select class="dropdown" id="row-settings-2">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+							</select>
+						</div>
+						<label for="row-settings-3">Row 3</label>
+						<div class="form-element block">
+							<select class="dropdown" id="row-settings-3">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+							</select>
+						</div>
+						<label for="row-settings-4">Row 4</label>
+						<div class="form-element block">
+							<select class="dropdown" id="row-settings-4">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+							</select>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="user-settings wrapper" ng-show="settings == 'users'">
+			<div class="user-settings wrapper help" ng-show="settings == 'users'">
 				<h1>User Settings</h1>
 				<div class="form-container">
 					<div class="inner">
+						<h4>Currently logged in as: Guest</h4>
+						<h4>Editing tree: {{tree.treeName}}</h4>
 					</div>
 				</div>
 			</div>
-			<div class="help-settings wrapper" ng-show="settings == 'help'">
+			<div class="help-settings wrapper help" ng-show="settings == 'help'">
 				<h1>Help</h1>
 				<div class="form-container">
 					<div class="inner">
+						<h4><i class="fa fa-user"></i> User Settings</h4>
+						<p>Create account</p>
+						<p>Manage which tree is being edited</p>
+						<p>Export talent tree</p>
+						<h4><i class="fa fa-cogs"></i> Individual Talent Settings</h4>
+						<p>(Automatically brought up when talent is clicked on)</p>
+						<p>Change name, description, image, prerequisite talents, and more</p>
+						<h4><i class="fa fa-list-ul"></i> Row Settings</h4>
+						<p>Set number of talents needed to put points in the subsequent row</p>
+						<h4><i class="fa fa-play"></i> Simulate</h4>
+						<p>Simulate using Talent Tree on browser (will stay in current window)</p>
+						<h4><i class="fa fa-eye"></i> Visual Display</h4>
+						<p>Hover over talent box to either configure or disable</p>
+						<h4><i class="fa fa-list-ol"></i> Textual Display</h4>
+						<p>Select row on left side of project window, click to edit talent</p>
+					</div>
+				</div>
+			</div>
+			<div class="welcome-settings wrapper help" ng-show="settings == 'welcome'">
+				<h1>Create Tree</h1>
+				<div class="form-container">
+					<div class="inner">
+						<h3>Welcome!</h3> 
+						<h3>This site will allow you to create and customize a talent tree, all within your browser!</h3>
+						<h3 class="more">To begin, fill out the form below.</h3>
+						<label for="treeName">Name of Tree</label>
+						<input type="text" class="form-element" placeholder="Tree Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Tree Name'" id="treeName">
+						<label for="tree-rows">Rows</label>
+						<div class="form-element block">
+							<select class="dropdown" id="tree-rows">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+							</select>
+						</div>
+						<label for="tree-cols">Columns</label>
+						<div class="form-element block">
+							<select class="dropdown" id="tree-cols">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+							</select>
+						</div>
+						<button class="form-element" ng-click="showJSON()">Create</button>
 					</div>
 				</div>
 			</div>
@@ -108,9 +227,9 @@
 	<div class="talent-tree" resize ng-style="style()">
 		<div class="inner">
 			<div class="display-type">
-				<h5><a href="#" class="left active" activate-me="treeDisplay" ng-click="treeType='visual'">visual display</a></h5><h5><a href="#" activate-me="treeDisplay" ng-click="treeType = 'textual'">textual display</a></h5>
+				<h5><a href="#" class="left active" activate-me="treeDisplay" ng-click="treeType='visual'"><i class="fa fa-eye"></i></a></h5><h5><a href="#" activate-me="treeDisplay" ng-click="treeType = 'textual'"><i class="fa fa-list-ol"></i></a></h5>
 			</div>
-			<h1>Talent Tree</h1>
+			<h1>My Cool Tree Name</h1>
 			<div class="tree-container" ng-init="treeType='visual'">
 				<div class="visual-container show-animation" ng-show="treeType == 'visual'">
 					<div class="row-backgrounds">
@@ -151,7 +270,7 @@
 						<div class="side">
 							<div class="mini-tree-display">
 								<ul class="mini-list-row" id="row{{row}}" ng-repeat="row in treeRows">
-									<li class="mini-list-col" ng-class="{notDisplayed: talent.disabled, strongBorder: talent.row_id == whichRow+1}" ng-repeat="talent in row.columns"></li>
+									<li class="mini-list-col" ng-class="{notDisplayed: talent.disabled, strongBorder: talent.row_id == whichRow+1, active: talent == selectedTalent}" ng-repeat="talent in row.columns"></li>
 								</ul>
 							</div>
 							<div class="row-list-container">
@@ -194,9 +313,9 @@
 	<script src="public/libs/extra/jquery.easydropdown.min.js"></script>
 
 	<!-- local scripts -->
-	<script src="public/js/app.js"></script>
-	<script src="public/js/directives/talentDirectives.js"></script>
-	<script src="public/js/services/rowService.js"></script>
+	<script src="public/js/app.js?version=1.0"></script>
+	<script src="public/js/directives/talentDirectives.js?version=1.0"></script>
+	<script src="public/js/services/rowService.js?version=1.0"></script>
 
 </body>
 </html>

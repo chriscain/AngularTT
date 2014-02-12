@@ -1,10 +1,10 @@
-myApp.service('rowService', function() {
+myApp.service('treeService', function() {
 
 	var treeRows = [];
 	var allTalents = [];
 
 	return {
-		generateRows: function(rows, columns){
+		createTree: function(rows, columns){
 
 			for (var i = 0; i < rows; i++)
 			{

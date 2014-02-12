@@ -1,34 +1,45 @@
 var myApp = angular.module('myApp', ["ngAnimate"]);
 
-myApp.controller('TalentController', function($scope, rowService) {
+myApp.controller('TalentController', function($scope, treeService) {
 
-	$scope.treeRows = rowService.treeRows;
-	$scope.allTalents = rowService.talents;
+	$scope.treeRows = treeService.treeRows;
+	$scope.allTalents = treeService.talents;
 	$scope.maxPointsOptions = [1, 2, 3, 4, 5];
 	$scope.prereqOpts = ['None'];
 	$scope.whichRow = 0;
+	$scope.settings = 'help';
 	$scope.groups = [];
-	rowService.generateRows(5, 5);
+
+	$scope.tree = {
+		treeName: "My Tree",
+		numRows: 5,
+		numCols: 5
+	};
+
+	treeService.createTree($scope.tree.numRows, $scope.tree.numCols);
 
 	$scope.saveInformation = function(){
-		rowService.saveInfo();
+		treeService.saveInfo();
 	};
 
 	$scope.changeTab = function(row) {
 		$scope.whichRow = row.row_num;
+		$scope.selectedTalent = null;
 	};
 
 	$scope.setSelected = function(talent){
 		if ($scope.selectedTalent == talent)
 		{
 			$scope.selectedTalent = null;
+			$scope.advancedOptions = false;
 		}
 		else
 		{
 			$scope.selectedTalent = talent;
-
+			$scope.settings = 'talents';
 			//update dropdown menu
-			talent.prereqs[1] = talent.aboveTalent.talentName;
+			if (talent.row_id > 1)
+				talent.prereqs[1] = talent.aboveTalent.talentName;
 			$scope.prereqOpts = talent.prereqs;
 
 			//update row selected in talent
@@ -53,7 +64,6 @@ myApp.controller('TalentController', function($scope, rowService) {
 
 		//if you're disabled you can't have a prereq talent
 		talent.prereq = 'None';
-
 	};
 
 	$scope.displayStuff = function(talent) {
@@ -63,9 +73,4 @@ myApp.controller('TalentController', function($scope, rowService) {
 	$scope.toggleAdvancedOptions = function() {
 		$scope.advancedOptions = !$scope.advancedOptions;
 	};
-
-	$scope.showJSON = function() {
-		console.log($scope.selectedTalent);
-	}
-
 });

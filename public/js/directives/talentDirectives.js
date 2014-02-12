@@ -24,7 +24,16 @@ myApp.directive('resize', function ($window) {
 				if (newValue.width > 1185)
 				{
 					return {
-						'height': (newValue.height) + 'px',
+						'height': (newValue.height) + 'px'
+					};
+				}
+			};
+
+			scope.modStyle = function(dif) {
+				if (newValue.width > 1185)
+				{
+					return {
+						'height': (newValue.height-dif) + 'px'
 					};
 				}
 			};
