@@ -7,6 +7,7 @@
         "angular": "latest",
         "jquery": "latest",
         "angular-animate": "latest",
-        "less": "1.6.0"
+        "less": "1.6.0",
+        "underscore": "latest"
     }
 }
