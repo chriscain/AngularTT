@@ -11,12 +11,17 @@ myApp.controller('TalentController', function($scope, treeService) {
 	$scope.groups = [];
 
 	$scope.tree = {
-		treeName: "My Tree",
+		treeName: "Untitled Tree",
 		numRows: 5,
 		numCols: 5
 	};
 
-	treeService.createTree($scope.tree.numRows, $scope.tree.numCols);
+	$scope.makeTree = function() {
+		treeService.createTree($scope.tree.numRows, $scope.tree.numCols);
+		$scope.initialize = true;
+		$scope.settings = 'talents';
+	};
+	
 
 	$scope.saveInformation = function(){
 		treeService.saveInfo();

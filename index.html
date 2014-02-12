@@ -140,8 +140,7 @@
 				<h1>User Settings</h1>
 				<div class="form-container">
 					<div class="inner">
-						<h4>Currently logged in as: Guest</h4>
-						<h4>Editing tree: {{tree.treeName}}</h4>
+						<h3>TODO: Incorporate User Profiles</h3>
 					</div>
 				</div>
 			</div>
@@ -175,7 +174,7 @@
 						<h3>This site will allow you to create and customize a talent tree, all within your browser!</h3>
 						<h3 class="more">To begin, fill out the form below.</h3>
 						<label for="treeName">Name of Tree</label>
-						<input type="text" class="form-element" placeholder="Tree Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Tree Name'" id="treeName">
+						<input type="text" class="form-element" placeholder="Tree Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Tree Name'" id="treeName" ng-model="tree.treeName">
 						<label for="tree-rows">Rows</label>
 						<div class="form-element block">
 							<select class="dropdown" id="tree-rows">
@@ -196,7 +195,7 @@
 								<option value="5">5</option>
 							</select>
 						</div>
-						<button class="form-element" ng-click="showJSON()">Create</button>
+						<button class="form-element" ng-click="makeTree()">Create</button>
 					</div>
 				</div>
 			</div>
@@ -229,8 +228,8 @@
 			<div class="display-type">
 				<h5><a href="#" class="left active" activate-me="treeDisplay" ng-click="treeType='visual'"><i class="fa fa-eye"></i></a></h5><h5><a href="#" activate-me="treeDisplay" ng-click="treeType = 'textual'"><i class="fa fa-list-ol"></i></a></h5>
 			</div>
-			<h1>My Cool Tree Name</h1>
-			<div class="tree-container" ng-init="treeType='visual'">
+			<h1>{{tree.treeName}}</h1>
+			<div class="tree-container" ng-init="treeType='visual'" ng-show="initialize">
 				<div class="visual-container show-animation" ng-show="treeType == 'visual'">
 					<div class="row-backgrounds">
 						<div ng-repeat="row in treeRows" class="bg">
