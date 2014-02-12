@@ -32,45 +32,53 @@
 	</div>
 	<div class="config-place" resize ng-style="style()">
 		<div class="inner">
-			<h1>Talent Settings</h1>
-			<div class="form-container">
-				<div class="inner">
-					<form role="form" name="talentForm">
-						<label for="talentName">Name of Talent</label>
-						<input type="text" class="form-element" placeholder="Talent Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Talent Name'" id="talentName" ng-model="selectedTalent.talentName">
-						<div class="form-element left">
-							<label for="points">Max Points</label>
-							<select class="dropdown" id="max-points">
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="1">4</option>
-								<option value="2">5</option>
-							</select>
-						</div>
-						<div class="form-element right">
-							<label for="points-per">Levels / Talent Increase</label>
-							<select class="dropdown" id="points-per">
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-							</select>
-						</div>
-						<div class="form-element block">
-							<label for="points">Prereq Talent</label>
-							<select class="dropdown" id="points">
-								<option value="1">None</option>
-								<option value="2">April</option>
-								<option value="3">Son</option>
-							</select>
-						</div>
-						<label for="desc">Talent Description</label>
-						<textarea class="form-element" name="desc" id="desc" cols="30" rows="5" placeholder="Enter a description" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter a description'" ng-model="selectedTalent.description"></textarea>
-						<button class="form-element right" ng-click="toggleAdvancedOptions()">Advanced Settings <i class="fa fa-caret-right"></i></button>
-						<button class="form-element" id="submit">Submit Changes</button>
-					</form>
+			<div class="talent-settings wrapper" ng-show="settings == 'talents'" ng-init="settings = 'talents'">
+				<h1>Talent Settings</h1>
+				<div class="form-container">
+					<div class="inner">
+						<form role="form" name="talentForm">
+							<label for="talentName">Name of Talent</label>
+							<input type="text" class="form-element" placeholder="Talent Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Talent Name'" id="talentName" ng-model="selectedTalent.talentName">
+							<div class="form-element block">
+								<label for="max-points">Max Points</label>
+								<select id="max-points" ng-model="selectedTalent.maxPoints" ng-options="p for p in maxPointsOptions">
+									
+								</select>
+							</div>
+							
+							<div class="form-element block">
+								<label for="points">Prereq Talent</label>
+								<select id="points" ng-model="selectedTalent.prereq" ng-options="t for t in prereqOpts">
+
+								</select>
+							</div>
+							<label for="desc">Talent Description</label>
+							<textarea class="form-element" name="desc" id="desc" cols="30" rows="5" placeholder="Enter a description" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter a description'" ng-model="selectedTalent.description"></textarea>
+							<button class="form-element right" ng-click="toggleAdvancedOptions()">Advanced Settings <i class="fa fa-caret-right"></i></button>
+							<button class="form-element" id="submit" ng-click="showJSON()">Submit Changes</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="row-settings wrapper" ng-show="settings == 'rows'">
+				<h1>Row Settings</h1>
+				<div class="form-container">
+					<div class="inner">
+					</div>
+				</div>
+			</div>
+			<div class="user-settings wrapper" ng-show="settings == 'users'">
+				<h1>User Settings</h1>
+				<div class="form-container">
+					<div class="inner">
+					</div>
+				</div>
+			</div>
+			<div class="help-settings wrapper" ng-show="settings == 'help'">
+				<h1>Help</h1>
+				<div class="form-container">
+					<div class="inner">
+					</div>
 				</div>
 			</div>
 		</div>
@@ -95,7 +103,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 
 	<div class="talent-tree" resize ng-style="style()">
 		<div class="inner">
@@ -138,7 +146,7 @@
 					</ul>
 				</div>
 				<div class="textual-container show-animation" ng-show="treeType == 'textual'">
-					
+
 					<div class="textual-row-container">
 						<div class="side">
 							<div class="mini-tree-display">
@@ -149,19 +157,19 @@
 							<div class="row-list-container">
 								<ul class="row-list">
 									<li class="header" ng-repeat="row in treeRows">
-										<a ng-click="changeTab(row)" activate-me active-group="treeContRows" first-active="0" class="row-header-link" href="#">Row {{row.row_num + 1}}</a>
+										<a ng-click="changeTab(row)" ng-class="{active: row.row_num == whichRow}" class="row-header-link" href="#">Row {{row.row_num + 1}}</a>
 									</li>
 								</ul>
 							</div>
 						</div>
 						<div class="text-display" ng-repeat="row in treeRows" ng-show="whichRow == row.row_num">
 							<ul class="row-display">
-								<li ng-repeat="talent in row.columns" ng-class="{'disabled': talent.disabled}">
+								<li ng-repeat="talent in row.columns" ng-class="{disabled: talent.disabled, active: talent == selectedTalent}" ng-click="setSelected(talent)">
 									<div class="tInfo tSect">
 										<p><span class="talent-header">Talent Name:</span> {{talent.talentName}}</p>
 										<p><span class="talent-header">Max Points:</span> {{talent.maxPoints}}</p>
 										<p><span class="talent-header">Prereq Talent:</span> {{talent.prereq}}</p>
-										<p><span class="talent-header">Levels/Talent: {{talent.per}}</span></p>
+										<p><span class="talent-header">Disabled: </span>{{talent.disabled}}</p>
 									</div>
 									<div class="tDesc tSect">
 										<p><span class="talent-header">Description:</span> {{talent.description}}</p>

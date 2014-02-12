@@ -18,7 +18,7 @@ myApp.service('rowService', function() {
 				{
 					var col = {
 						pointsIn: 0,
-						maxPoints: '1',
+						maxPoints: 1,
 						imageURL: 'http://demandbaselabs.com/ga/images/delete-icon.png',
 						talentName: 'Untitled ' + (allTalents.length + 1),
 						description: 'My Beautiful Description',
@@ -26,8 +26,13 @@ myApp.service('rowService', function() {
 						col_id: j + 1,
 						disabled: false,
 						per: 1,
-						prereq: 'None'
+						prereq: 'None',
+						prereqs: ['None']
 					};
+					if (i > 0) {
+						//add prereq talents
+						col.aboveTalent = treeRows[i-1].columns[j];
+					}
 					treeRows[i].columns.push(col);
 					allTalents.push(col);
 				}
